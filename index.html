@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhuwan Khatri — AI/ML & Data Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #f0efff;
+      --muted: #8887a8;
+      --accent: #7c6af7;
+      --accent-light: #a59cfa;
+      --accent-bg: rgba(124,106,247,0.12);
+      --teal: #2dd4bf;
+      --teal-bg: rgba(45,212,191,0.1);
+      --coral: #f87171;
+      --coral-bg: rgba(248,113,113,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent-light); }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,106,247,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      background: var(--accent-bg);
+      border: 0.5px solid rgba(124,106,247,0.3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-light);
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent-light); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: #6b5ae0; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 10px;
+      border: 0.5px solid var(--border2);
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-ghost:hover { background: var(--surface2); transform: translateY(-1px); }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollDown 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%,100%{opacity:.2;transform:scaleY(0.6) translateY(-6px)}
+      50%{opacity:1;transform:scaleY(1) translateY(6px)}
+    }
+
+    /* Sections */
+    .section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .divider {
+      border: none;
+      border-top: 0.5px solid var(--border);
+    }
+
+    /* About */
+    .about-body {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .about-body strong { color: var(--text); font-weight: 500; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-light);
+    }
+    .stat-card .lbl {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      transition: border-color .2s, background .2s;
+    }
+    .skill-card:hover { border-color: var(--border2); background: var(--surface2); }
+    .skill-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .skill-icon.purple { background: var(--accent-bg); }
+    .skill-icon.teal { background: var(--teal-bg); }
+    .skill-icon.coral { background: var(--coral-bg); }
+    .skill-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .skill-tags { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* Projects */
+    .proj-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 14px;
+      transition: border-color .2s, transform .2s;
+    }
+    .proj-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .proj-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .proj-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .proj-icon.p { background: var(--teal-bg); color: var(--teal); }
+    .proj-icon.r { background: var(--accent-bg); color: var(--accent-light); }
+    .proj-icon.b { background: var(--coral-bg); color: var(--coral); }
+    .proj-title-row { flex: 1; }
+    .proj-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .proj-type { font-size: 12px; color: var(--muted); }
+    .proj-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 0.5px solid var(--border);
+    }
+
+    /* Contact */
+    .contact-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .contact-card p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 400px;
+      margin: .75rem auto 2rem;
+      line-height: 1.7;
+    }
+    .contact-links {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 18px;
+      border-radius: 10px;
+      border: 0.5px solid var(--border2);
+      color: var(--text);
+      text-decoration: none;
+      background: var(--surface2);
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .contact-link:hover { border-color: var(--accent); background: var(--accent-bg); transform: translateY(-1px); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 0.5px solid var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links li:nth-child(n+3) { display: none; }
+      .section { padding: 3.5rem 1.25rem; }
+      .about-stats { grid-template-columns: repeat(3,1fr); gap: 8px; }
+      .stat-card { padding: .75rem; }
+      .stat-card .num { font-size: 1.5rem; }
+      .contact-card { padding: 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="#">BK<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">Available for opportunities</div>
+    <h1>Bhuwan<br /><span>Khatri</span></h1>
+    <p class="hero-sub">AI/ML Engineer & Data Scientist building intelligent systems — from predictive models to RAG-powered chatbots.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- About -->
+  <section class="section" id="about">
+    <p class="section-eyebrow">Who I am</p>
+    <h2 class="section-title">Turning data into decisions</h2>
+    <p class="about-body">
+      I'm <strong>Bhuwan Khatri</strong>, an AI/ML and Data Science engineer with a passion for building end-to-end intelligent systems. I work across the full stack of AI — from raw data wrangling and feature engineering to training models, building retrieval-augmented chatbots, and shipping generative AI tools.<br /><br />
+      My focus is on work that's practical and impactful: systems that predict, explain, and automate in ways that genuinely help people. I'm always exploring new research and bringing those ideas into real projects.
+    </p>
+    <div class="about-stats">
+      <div class="stat-card"><div class="num">3+</div><div class="lbl">Projects shipped</div></div>
+      <div class="stat-card"><div class="num">AI</div><div class="lbl">Core focus</div></div>
+      <div class="stat-card"><div class="num">∞</div><div class="lbl">Curiosity</div></div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <p class="section-eyebrow">Toolkit</p>
+    <h2 class="section-title">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon purple">🧠</div>
+        <div class="skill-name">ML & Deep Learning</div>
+        <div class="skill-tags">Scikit-learn · PyTorch · TensorFlow · XGBoost</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon purple">💬</div>
+        <div class="skill-name">LLMs & RAG</div>
+        <div class="skill-tags">LangChain · OpenAI · FAISS · ChromaDB</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon teal">📊</div>
+        <div class="skill-name">Data Science</div>
+        <div class="skill-tags">Pandas · NumPy · Matplotlib · Seaborn</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon teal">🗄️</div>
+        <div class="skill-name">Data Engineering</div>
+        <div class="skill-tags">SQL · ETL Pipelines · Feature Engineering</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon coral">🐍</div>
+        <div class="skill-name">Languages</div>
+        <div class="skill-tags">Python · SQL · Bash · Markdown</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon coral">🚀</div>
+        <div class="skill-name">MLOps & Deployment</div>
+        <div class="skill-tags">FastAPI · Streamlit · Docker · GitHub Actions</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <p class="section-eyebrow">Work</p>
+    <h2 class="section-title">Projects</h2>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-icon p">📈</div>
+        <div class="proj-title-row">
+          <div class="proj-name">Prediction System</div>
+          <div class="proj-type">Machine Learning · Classification / Regression</div>
+        </div>
+      </div>
+      <p class="proj-desc">
+        An end-to-end ML pipeline that ingests raw data, handles preprocessing, feature engineering, and trains classification or regression models to predict real-world outcomes. Includes model evaluation, comparison of multiple algorithms, and a deployment-ready inference layer.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">Python</span>
+        <span class="tag">EDA</span>
+        <span class="tag">Feature Engineering</span>
+        <span class="tag">Model Evaluation</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-icon r">🤖</div>
+        <div class="proj-title-row">
+          <div class="proj-name">RAG Chatbot</div>
+          <div class="proj-type">LLM · Retrieval-Augmented Generation</div>
+        </div>
+      </div>
+      <p class="proj-desc">
+        An intelligent chatbot powered by Retrieval-Augmented Generation (RAG) that answers questions from custom document sources. Uses vector similarity search to retrieve relevant context and feeds it into an LLM for accurate, grounded responses — no hallucinations from documents it doesn't know.
+      </p>
+      <div class="tag-row">
+        <span class="tag">LangChain</span>
+        <span class="tag">OpenAI</span>
+        <span class="tag">FAISS</span>
+        <span class="tag">Python</span>
+        <span class="tag">Prompt Engineering</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-icon b">📄</div>
+        <div class="proj-title-row">
+          <div class="proj-name">Brochure Generator</div>
+          <div class="proj-type">Generative AI · Content Automation</div>
+        </div>
+      </div>
+      <p class="proj-desc">
+        An AI-powered tool that automatically generates professional brochures from product descriptions or company data. Uses LLMs with carefully crafted prompts to produce compelling, structured marketing copy — cutting manual content creation time dramatically.
+      </p>
+      <div class="tag-row">
+        <span class="tag">LLM</span>
+        <span class="tag">Python</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">Automation</span>
+        <span class="tag">Content Generation</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="contact-card">
+      <p class="section-eyebrow" style="text-align:center">Contact</p>
+      <h2 class="section-title" style="text-align:center">Let's build something</h2>
+      <p>Open to collaborations, freelance AI/ML projects, and full-time opportunities. Reach out — I'd love to connect.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:hello@bhuwan1718.com.np">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email
+        </a>
+        <a class="contact-link" href="https://github.com/bhuwan1718" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          GitHub
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/bhuwan-khatri" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a class="contact-link" href="https://bhuwan1718.com.np" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          bhuwan1718.com.np
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Bhuwan Khatri · Built with care · bhuwan1718.com.np</p>
+  </footer>
+
+</body>
+</html>
